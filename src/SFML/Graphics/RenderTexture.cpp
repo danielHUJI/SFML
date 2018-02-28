@@ -126,7 +126,13 @@ bool RenderTexture::generateMipmap()
 ////////////////////////////////////////////////////////////
 bool RenderTexture::setActive(bool active)
 {
-    return m_impl && m_impl->activate(active);
+    bool result = m_impl && m_impl->activate(active);
+
+    // Update RenderTarget tracking
+    if (result)
+        track(active);
+
+    return result;
 }
 
 
